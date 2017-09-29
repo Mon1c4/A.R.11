@@ -1,0 +1,53 @@
+# A.R.11
+#29/09/2017
+#EJERCICIOS EN CLASE
+
+x<-c(170,172,173,174,174,175,176,177,180,
+     180,180,180,180,181,181,182,182,182,182,
+     184,184,185,186,188)
+y<-c(.84,1.31,1.42,1.03,1.07,1.08,1.04,1.8,1.45,
+     1.60,1.61,2.13,2.15,.84,1.43,.9,1.82,
+     1.92,2.68,1.49,2.52,3.00,1.87,3.08)
+#1) determine la ec de la recta de regresion estimado
+#2 calcule una estimación puntual del salto horizontal
+#promedio cunado la estatura de la persona es de 182
+#3 calcule los valors de los residuos de miniumos cuaderados de las 4 observaciones 
+#con las cuales la estatura es de 182
+#¿qué proporción de la variación observada en el salto hozitontal es
+#atribuida a la relacion de regresion lineal simple?
+#45% es la variacióin observada 
+
+sxy<-sum(x*y)-(sum(x)*sum(y))/length(x)
+sxx<-sum(x^2)-(sum(x)^2)/length(x)
+b1<-sxy/sxx
+b1
+
+b0<-(sum(y)-sum(b1*x))/length(x)
+b0
+
+mdo1<- lm(y~x)
+summary(mdo1)
+
+
+#2
+estpun<-b0+b1*182
+estpun
+
+#3
+
+v1<-.90-estpun
+v2<-1.82-estpun
+v3<-1.92-estpun #distancia vertical del punto al punto de la recta
+v4<-2.68-estpun
+v1
+v2
+v3
+v4
+
+names(mdo1)
+mdo1$coefficients[1] #b0
+mdo1$coefficients[-1] #b1
+
+plot(y~x, xlab="estatura", ylab="salto horizontal",xlim=c(160,190),
+     ylim=c(.80,3.2), main="Grafica")
+     abline(mdo1,col="pink")
